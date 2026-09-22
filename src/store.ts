@@ -1,7 +1,10 @@
 import bcrypt from "bcryptjs";
 import type { Exercise, Execution, Routine, RoutineExercise, User, ChatLog } from "./types.js";
 
-const hash = bcrypt.hashSync("12345678", 10);
+const defaultCoachEmail = process.env.DEFAULT_COACH_EMAIL ?? "coach@private.local";
+const defaultStudentEmail = process.env.DEFAULT_STUDENT_EMAIL ?? "student@private.local";
+const defaultCoachPassword = process.env.DEFAULT_COACH_PASSWORD ?? "change-me";
+const hash = bcrypt.hashSync(defaultCoachPassword, 10);
 
 export const store: {
   users: User[];
@@ -14,7 +17,7 @@ export const store: {
   users: [
     {
       id: "coach_1",
-      email: "coach@spartan.app",
+      email: defaultCoachEmail,
       passwordHash: hash,
       rol: "entrenador",
       nombre: "Coach",
@@ -31,7 +34,7 @@ export const store: {
     } as User,
     {
       id: "student_1",
-      email: "alumno@spartan.app",
+      email: defaultStudentEmail,
       passwordHash: hash,
       rol: "alumno",
       nombre: "Alumno",

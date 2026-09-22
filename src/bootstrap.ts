@@ -1,11 +1,14 @@
 import bcrypt from "bcryptjs";
 import { db } from "./db.js";
 
-export const initializeDatabase = async () => {
-  const trainerEmail = "coach@spartan.app";
-  const studentEmail = "alumno@spartan.app";
+const trainerEmail = process.env.DEFAULT_COACH_EMAIL ?? "coach@private.local";
+const studentEmail = process.env.DEFAULT_STUDENT_EMAIL ?? "student@private.local";
+const coachPassword = process.env.DEFAULT_COACH_PASSWORD ?? "change-me";
+const studentPassword = process.env.DEFAULT_STUDENT_PASSWORD ?? coachPassword;
 
-  const passwordHash = await bcrypt.hash("12345678", 10);
+export const initializeDatabase = async () => {
+  const passwordHash = await bcrypt.hash(coachPassword, 10);
+  const studentPasswordHash = await bcrypt.hash(studentPassword, 10);
 
   const trainerCheck = await db.query("SELECT id FROM users WHERE email = $1", [trainerEmail]);
 
@@ -47,7 +50,7 @@ export const initializeDatabase = async () => {
             'Tester', 28, '+5491112345678', '3x_semana', 'Lunes / Miércoles / Viernes'
           )
         `,
-        [studentEmail, passwordHash, trainerId],
+        [studentEmail, studentPasswordHash, trainerId],
       );
     }
 

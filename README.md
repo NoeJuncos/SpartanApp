@@ -24,10 +24,9 @@ Example:
 psql -d spartan_app -f database/schema.sql
 ```
 
-## Default credentials
+## Private credentials
 
-- Trainer: `coach@spartan.app` / `12345678`
-- Student: `alumno@spartan.app` / `12345678`
+Default app users are created from environment variables and should never be committed to a public repository. Set your private values in `.env` or in your deployment platform secrets.
 
 ## Main routes
 

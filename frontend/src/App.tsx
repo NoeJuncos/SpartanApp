@@ -292,8 +292,8 @@ function RoleLayout() {
 function LoginPage() {
   const navigate = useNavigate()
   const { setSession } = useAuth()
-  const [email, setEmail] = useState('coach@spartan.app')
-  const [password, setPassword] = useState('12345678')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
 
@@ -332,7 +332,7 @@ function LoginPage() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="mb-2 block text-sm text-slate-300">Email</label>
-            <input data-testid="login-input-email" value={email} onChange={(event) => setEmail(event.target.value)} type="email" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none transition focus:border-red-500" placeholder="usuario@spartan.app" />
+            <input data-testid="login-input-email" value={email} onChange={(event) => setEmail(event.target.value)} type="email" className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2.5 text-white outline-none transition focus:border-red-500" placeholder="tu-email@dominio.com" />
           </div>
           <div>
             <label className="mb-2 block text-sm text-slate-300">Contraseña</label>
