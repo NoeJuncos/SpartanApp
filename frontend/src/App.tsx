@@ -24,7 +24,10 @@ import {
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 const STORAGE_KEY = 'spartan-auth-session'
-const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api'
+const API_BASE = (() => {
+  const rawBase = (import.meta.env.VITE_API_URL ?? 'http://localhost:3000/api').replace(/\/+$/, '')
+  return rawBase.endsWith('/api') ? rawBase : `${rawBase}/api`
+})()
 const api = axios.create({ baseURL: API_BASE })
 
 type Role = 'entrenador' | 'alumno'
