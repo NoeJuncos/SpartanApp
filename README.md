@@ -2,6 +2,10 @@
 
 Spartan App is a training and coaching platform that combines a React frontend with a Node.js backend and a Neon Postgres database. The application is designed to manage athletes, exercises, routines, execution tracking, progress, authentication, and AI-assisted support for exercise-related questions.
 
+## 📋 Documentación del proyecto
+
+- [Overview del proyecto y proceso de desarrollo](docs/project-overview.md) — motivación, decisiones de arquitectura y orquestación de IA
+
 ## Architecture
 
 This repository is organized as a small monorepo:
