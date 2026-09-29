@@ -2,7 +2,10 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import type { AuthUser } from "./types.js";
 
-const JWT_SECRET = process.env.JWT_SECRET ?? "spartan-dev-secret";
+const JWT_SECRET = process.env.JWT_SECRET;
+if (!JWT_SECRET) {
+  throw new Error("JWT_SECRET no está definido. Configuralo en las variables de entorno.");
+}
 
 export const hashPassword = async (plainPassword: string) => bcrypt.hash(plainPassword, 10);
 export const comparePassword = async (plainPassword: string, hash: string) => bcrypt.compare(plainPassword, hash);

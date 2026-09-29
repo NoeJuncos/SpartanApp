@@ -1,10 +1,19 @@
 import { Router } from "express";
 import { z } from "zod";
+import rateLimit from "express-rate-limit";
 import { db } from "../db.js";
 import { authMiddleware, requirePasswordChangeResolved, type AuthenticatedRequest } from "../middleware/auth.js";
 import { comparePassword, hashPassword, signToken } from "../security.js";
 
 const router = Router();
+
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { message: "Demasiados intentos. Intentá de nuevo en 15 minutos." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -33,7 +42,7 @@ const mapUserRow = (row: any) => ({
   horario: row.horario ?? null,
 });
 
-router.post("/login", async (req, res) => {
+router.post("/login", loginLimiter, async (req, res) => {
   const parsed = loginSchema.safeParse(req.body);
 
   if (!parsed.success) {

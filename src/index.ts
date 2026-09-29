@@ -13,7 +13,7 @@ import studentsRouter from "./routes/students.js";
 const app = express();
 const port = Number(process.env.PORT ?? 3000);
 
-app.use(cors());
+app.use(cors({ origin: "https://spartan-app-lilac.vercel.app" }));
 app.use(express.json());
 
 app.get("/health", async (_req, res) => {
